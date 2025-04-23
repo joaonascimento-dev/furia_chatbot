@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat FURIA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="res/css/style.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">Chat FURIA</div>
+        <div class="chat-messages" id="chat">
+            <div class="message bot">Olá! Sou seu bot da FURIA. Quer saber o quê?</div>
+        </div>
+        <div class="suggestions">
+            <button onclick="sendSuggested('Quando é o próximo jogo?')">Próximo jogo</button>
+            <button onclick="sendSuggested('Quais são as estatísticas da FURIA?')">Estatísticas</button>
+            <button onclick="sendSuggested('Quem é o jogador favorito?')">Jogador favorito</button>
+            <button onclick="sendSuggested('Vamos torcer!')">Torcida</button>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Digite sua mensagem...">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (message === '') return;
+
+            appendMessage('user', message);
+            input.value = '';
+
+            setTimeout(() => {
+                const response = generateBotResponse(message);
+                appendMessage('bot', response);
+            }, 500);
+        }
+
+        function sendSuggested(text) {
+            appendMessage('user', text);
+            setTimeout(() => {
+                const response = generateBotResponse(text);
+                appendMessage('bot', response);
+            }, 500);
+        }
+
+        function appendMessage(sender, text) {
+            const chat = document.getElementById('chat');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${sender}`;
+            msgDiv.innerText = text;
+            chat.appendChild(msgDiv);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function generateBotResponse(message) {
+            const msg = message.toLowerCase();
+            if (msg.includes('jogo') || msg.includes('partida')) {
+                return 'A próxima partida da FURIA é contra NAVI, dia 25/04 às 17h.';
+            } else if (msg.includes('estatística') || msg.includes('stats')) {
+                return 'A FURIA tem 60% de winrate nos últimos 10 jogos.';
+            } else if (msg.includes('jogador favorito')) {
+                return 'O jogador mais popular é o KSCERATO!';
+            } else if (msg.includes('torcida')) {
+                return 'VAAAAMO FURIA! 🐆🔥';
+            } else {
+                return 'Desculpe, não entendi. Pergunte sobre jogos, estatísticas ou torcida!';
+            }
+        }
+    </script>
+</body>
+
+</html>
