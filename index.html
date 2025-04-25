@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat FURIA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="res/css/style.css">
 </head>
 
 <body class="text-white">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
 
     <div class="container-fluid bg-light" style="height: 8vh;">
         <div class="container h-100 d-flex align-items-center justify-content-center">
@@ -21,12 +24,44 @@
     </div>
 
     <div class="container-fluid p-0" style="height: 60vh;">
-        <img src="res/img/banner-3.png" alt="Banner FURIA" class="img-fluid" style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
+        <img src="res/img/banner-3.png" alt="Banner FURIA" class="img-fluid"
+            style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
     </div>
 
     <div class="container d-flex align-items-center justify-content-center mt-4">
+        <div class="row w-100 text-center">
+            <span>Quer saber mais sobre nossos times?</span>
+            <span class="mt-2">Escolha um Game e pergunte ao chatbot!</span>
+        </div>
+    </div>
+
+    <div class="container d-flex align-items-center justify-content-center mt-4">
+        <div class="row w-100">
+            <div class="col d-flex">
+                <input type="radio" class="btn-check" name="game" id="cs2" autocomplete="off" checked>
+                <label class="btn btn-outline-light border-0 w-100" for="cs2">
+                    <img src="res/img/Counter-Strike_2_logo.svg.png" alt="Counter-Strike 2" class="img-fluid" style="height: 10vh; object-fit: contain;">
+                </label>
+            </div>
+
+            <div class="col d-flex">
+                <input type="radio" class="btn-check" name="game" id="lol" autocomplete="off">
+                <label class="btn btn-outline-light border-0 w-100" for="lol">
+                    <img src="res/img/League_of_Legends_logo.svg.png" alt="League of Legends" class="img-fluid" style="height: 10vh; object-fit: contain;">
+                </label>
+            </div>
+
+            <div class="col d-flex">
+                <input type="radio" class="btn-check" name="game" id="valorant" autocomplete="off">
+                <label class="btn btn-outline-light border-0 w-100" for="valorant">
+                    <img src="res/img/Valorant_logo.svg.png" alt="Valorant" class="img-fluid" style="height: 10vh; object-fit: contain;">
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex align-items-center justify-content-center mt-4">
         <div class="chat-container">
-            <div class="chat-header">Chat FURIA</div>
+            <div class="chat-header"><i class="bi bi-robot"></i> Chat Bot</div>
             <div class="chat-messages" id="chat">
                 <div class="message bot">Olá! Sou seu bot da FURIA. Quer saber o quê?</div>
             </div>
@@ -45,7 +80,7 @@
 
     <div class="container-fluid bg-light text-dark fs-6 mt-4" style="height: 12vh;">
         <div class="container h-100 d-flex align-items-center justify-content-between">
-            <span>© 2024 Furia. All Rights Reserved.</span>
+            <span>© 2025 Furia. All Rights Reserved.</span>
             <span>Desenvolvido por: João Nascimento</span>
         </div>
     </div>
