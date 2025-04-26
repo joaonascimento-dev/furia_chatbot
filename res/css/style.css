@@ -23,6 +23,10 @@ body {
     border-bottom: 1px solid #444;
 }
 
+.bg-escuro {
+    background-color: #2a2a2a;
+}
+
 .suggestions {
     display: flex;
     flex-wrap: wrap;
