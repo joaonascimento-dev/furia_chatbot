@@ -75,10 +75,12 @@
                 <button onclick="sendSuggested('Quais são as estatísticas da FURIA?')">Estatísticas</button>
                 <button onclick="sendSuggested('Quem é o jogador favorito?')">Jogador favorito</button>
                 <button onclick="sendSuggested('Vamos torcer!')">Torcida</button>
+                <button onclick="sendSuggested('Qual é a lineup da FURIA?')">Lineup</button> <!-- novo botão -->
             </div>
+            
             <div class="chat-input">
                 <input type="text" id="userInput" placeholder="Digite sua mensagem...">
-                <button onclick="sendMessage()">Enviar</button>
+                <button onclick="sendMessage()"><i class="bi bi-send-fill"></i> Enviar</button>
             </div>
         </div>
     </div>
@@ -129,18 +131,17 @@
                 appendMessage('bot', 'A FURIA tem 60% de winrate nos últimos 10 jogos.');
             } else if (msg.includes('jogador favorito')) {
                 appendMessage('bot', 'O jogador mais popular é o KSCERATO!');
-            } else if (msg.includes('torcida')) {
+            } else if (msg.includes('torcida') || msg.includes('torcer') || msg.includes('bora') || msg.includes('GOFURIA')) {
                 appendMessage('bot', 'VAAAAMO FURIA! 🐆🔥');
+            } else if (msg.includes('lineup') || msg.includes('escalação') || msg.includes('jogadores')) {
+                fetchLineup();
             } else {
-                appendMessage('bot', 'Desculpe, não entendi. Pergunte sobre jogos, estatísticas ou torcida!');
+                appendMessage('bot', 'Desculpe, não entendi. Pergunte sobre jogos, estatísticas, lineup ou torcida!');
             }
         }
     
         function fetchNextMatch() {
-            const API_KEY = 'YOUR_API_KEY'; // 🔑 Substitua aqui pela sua API Key da PandaScore
-            const url = `https://api.pandascore.co/cs2/matches/upcoming?token=${API_KEY}`;
-    
-            fetch(url)
+            fetch('http://localhost:3000/next-match')
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0) {
@@ -148,6 +149,7 @@
                         return;
                     }
     
+                    console.log(data);
                     const match = data[0];
                     const team1 = match.opponents[0]?.opponent?.name || 'Time 1';
                     const team2 = match.opponents[1]?.opponent?.name || 'Time 2';
@@ -163,7 +165,28 @@
                     appendMessage('bot', 'Desculpe, não consegui obter os dados agora. Tente novamente mais tarde.');
                 });
         }
+    
+        function fetchLineup() {
+            fetch('http://localhost:3000/lineup')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data[0].players || data[0].players.length === 0) {
+                        appendMessage('bot', 'Não consegui encontrar os jogadores da FURIA no momento.');
+                        return;
+                    }
+    
+                    const activePlayers = data[0].players.filter(player => player.active);
+                    const playerNames = activePlayers.map(player => player.name).join(', ');
+    
+                    appendMessage('bot', `Lineup atual da FURIA: ${playerNames}`);
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar lineup:', error);
+                    appendMessage('bot', 'Desculpe, não consegui obter a lineup agora. Tente novamente mais tarde.');
+                });
+        }
     </script>
+    
     
 </body>
 
