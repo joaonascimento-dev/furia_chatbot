@@ -23,9 +23,13 @@
         </div>
     </div>
 
-    <div class="container-fluid p-0" style="height: 60vh;">
-        <img src="res/img/banner-3.png" alt="Banner FURIA" class="img-fluid"
-            style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
+    <div class="container-fluid p-0" style="height: 60vh; position: relative; overflow: hidden;">
+        <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;"
+            poster="res/img/banner-3.png">
+            <source src="res/video/banner.mp4" type="video/mp4">
+            <img src="res/img/banner-3.png" alt="Banner de fallback"
+                style="width: 100%; height: 100%; object-fit: cover;">
+        </video>
     </div>
 
     <div class="container d-flex align-items-center justify-content-center mt-4">
@@ -74,10 +78,10 @@
                 <button onclick="sendSuggested('Quando é o próximo jogo?')">Próximo jogo</button>
                 <button onclick="sendSuggested('Quais são as estatísticas da FURIA?')">Estatísticas</button>
                 <button onclick="sendSuggested('Quem é o jogador favorito?')">Jogador favorito</button>
+                <button onclick="sendSuggested('Qual é a lineup da FURIA?')">Lineup</button>
                 <button onclick="sendSuggested('Vamos torcer!')">Torcida</button>
-                <button onclick="sendSuggested('Qual é a lineup da FURIA?')">Lineup</button> <!-- novo botão -->
             </div>
-            
+
             <div class="chat-input">
                 <input type="text" id="userInput" placeholder="Digite sua mensagem...">
                 <button onclick="sendMessage()"><i class="bi bi-send-fill"></i> Enviar</button>
@@ -96,23 +100,23 @@
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    
+
         function sendMessage() {
             const input = document.getElementById('userInput');
             const message = input.value.trim();
             if (message === '') return;
-    
+
             appendMessage('user', message);
             input.value = '';
-    
+
             handleBotResponse(message);
         }
-    
+
         function sendSuggested(text) {
             appendMessage('user', text);
             handleBotResponse(text);
         }
-    
+
         function appendMessage(sender, text) {
             const chat = document.getElementById('chat');
             const msgDiv = document.createElement('div');
@@ -121,14 +125,14 @@
             chat.appendChild(msgDiv);
             chat.scrollTop = chat.scrollHeight;
         }
-    
+
         function handleBotResponse(message) {
             const msg = message.toLowerCase();
-    
+
             if (msg.includes('jogo') || msg.includes('partida')) {
                 fetchNextMatch();
             } else if (msg.includes('estatística') || msg.includes('stats')) {
-                appendMessage('bot', 'A FURIA tem 60% de winrate nos últimos 10 jogos.');
+                fetchStats();
             } else if (msg.includes('jogador favorito')) {
                 appendMessage('bot', 'O jogador mais popular é o KSCERATO!');
             } else if (msg.includes('torcida') || msg.includes('torcer') || msg.includes('bora') || msg.includes('GOFURIA')) {
@@ -139,7 +143,7 @@
                 appendMessage('bot', 'Desculpe, não entendi. Pergunte sobre jogos, estatísticas, lineup ou torcida!');
             }
         }
-    
+
         function fetchNextMatch() {
             fetch('http://localhost:3000/next-match')
                 .then(response => response.json())
@@ -148,7 +152,7 @@
                         appendMessage('bot', 'Nenhuma partida futura encontrada no momento.');
                         return;
                     }
-    
+
                     console.log(data);
                     const match = data[0];
                     const team1 = match.opponents[0]?.opponent?.name || 'Time 1';
@@ -157,7 +161,7 @@
                         dateStyle: 'short',
                         timeStyle: 'short'
                     });
-    
+
                     appendMessage('bot', `Próxima partida: ${team1} vs ${team2} em ${date}`);
                 })
                 .catch(error => {
@@ -165,7 +169,7 @@
                     appendMessage('bot', 'Desculpe, não consegui obter os dados agora. Tente novamente mais tarde.');
                 });
         }
-    
+
         function fetchLineup() {
             fetch('http://localhost:3000/lineup')
                 .then(response => response.json())
@@ -174,10 +178,10 @@
                         appendMessage('bot', 'Não consegui encontrar os jogadores da FURIA no momento.');
                         return;
                     }
-    
+
                     const activePlayers = data[0].players.filter(player => player.active);
                     const playerNames = activePlayers.map(player => player.name).join(', ');
-    
+
                     appendMessage('bot', `Lineup atual da FURIA: ${playerNames}`);
                 })
                 .catch(error => {
@@ -185,9 +189,29 @@
                     appendMessage('bot', 'Desculpe, não consegui obter a lineup agora. Tente novamente mais tarde.');
                 });
         }
+
+        function fetchStats() {
+            fetch('http://localhost:3000/stats')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data[0].players || data[0].players.length === 0) {
+                        appendMessage('bot', 'Não consegui encontrar as estatísticas da FURIA no momento.');
+                        return;
+                    }
+
+                    const activePlayers = data[0].players.filter(player => player.active);
+                    const playerNames = activePlayers.map(player => player.name).join(', ');
+
+                    appendMessage('bot', `Stats atual da FURIA: ${playerNames}`);
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar stats:', error);
+                    appendMessage('bot', 'Desculpe, não consegui obter as estatísticas agora. Tente novamente mais tarde.');
+                });
+        }
     </script>
-    
-    
+
+
 </body>
 
 </html>

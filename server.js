@@ -55,7 +55,7 @@ app.get('/lineup', async (req, res) => {
 
 app.get('/stats', async (req, res) => {
     try {
-        const response = await fetch(`https://api.pandascore.co/csgo/teams?search[name]=Furia&sort=id&page=1&per_page=1&token=${API_KEY}`, {
+        const response = await fetch(`https://api.pandascore.co/csgo/teams/${FURIA_TEAM_ID}/stat?&token=${API_KEY}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
