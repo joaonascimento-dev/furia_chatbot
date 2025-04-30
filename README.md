@@ -16,31 +16,30 @@ Desenvolver uma solução, no caso, um chat na web, com funcionalidades que aten
 - Quiz ou interações divertidas para os fãs.
 - Outras ideias criativas que agreguem valor à experiência.
 
-<!-- ## Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-- **Backend**: [Especifique aqui as tecnologias utilizadas, como Node.js, Python, etc.]
-- **Frontend**: [Especifique aqui as tecnologias utilizadas, como React, HTML/CSS, etc.]
-- **Plataforma de Chat**: [Exemplo: Telegram Bot API, WebSocket, etc.] -->
+- **Backend**: Node.js
+- **Frontend**: HTML/CSS, JavaScript e Bootstrap
 
-<!-- ## Como Executar o Projeto
+## Como Executar o Projeto
 
 1. Clone este repositório:
     ```bash
-    git clone https://github.com/seu-usuario/furia-chatbot.git
+    git clone https://github.com/joaonascimento-dev/furia_chatbot.git
     ```
 2. Instale as dependências:
     ```bash
-    npm install
+    npm install express;npm install cors;npm install dotenv
     ```
 3. Configure as variáveis de ambiente:
-    - [Especifique as variáveis necessárias, como tokens de API.]
+    - Adicione um arquivo keys.env com a chave da api (API_KEY='exemplo') na pasta res/
 4. Inicie o servidor:
     ```bash
-    npm start
+    node server.js
     ```
 5. Acesse o chatbot na plataforma configurada.
 
-## Contribuição
+<!-- ## Contribuição
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests. -->
 
